@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Self-Assessment Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    .result {
+      margin-top: 30px;
+      padding: 10px;
+      border-top: 2px solid #000;
+    }
+    button {
+      padding: 10px 20px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Self-Assessment Quiz</h1>
+  <form id="quizForm">
+    <div class="question">
+      <p>1. What does HTML stand for?</p>
+      <label><input type="radio" name="q1" value="a" /> Hyper Trainer Marking Language</label><br />
+      <label><input type="radio" name="q1" value="b" /> Hyper Text Markup Language</label><br />
+      <label><input type="radio" name="q1" value="c" /> Hyper Tool Multi Language</label>
+    </div>
+
+    <div class="question">
+      <p>2. Which HTML element is used to define a paragraph?</p>
+      <label><input type="radio" name="q2" value="a" /> &lt;head&gt;</label><br />
+      <label><input type="radio" name="q2" value="b" /> &lt;div&gt;</label><br />
+      <label><input type="radio" name="q2" value="c" /> &lt;p&gt;</label>
+    </div>
+
+    <div class="question">
+      <p>3. Which attribute is used to link an external CSS file?</p>
+      <label><input type="radio" name="q3" value="a" /> style</label><br />
+      <label><input type="radio" name="q3" value="b" /> href</label><br />
+      <label><input type="radio" name="q3" value="c" /> src</label>
+    </div>
+
+    <div class="question">
+      <p>4. Fill in the blank: The <code>&lt;a&gt;</code> tag is used to create a _______.</p>
+      <input type="text" name="q4" />
+    </div>
+
+    <div class="question">
+      <p>5. Select all the HTML elements used for text formatting:</p>
+      <label><input type="checkbox" name="q5" value="b" /> &lt;b&gt;</label><br />
+      <label><input type="checkbox" name="q5" value="strong" /> &lt;strong&gt;</label><br />
+      <label><input type="checkbox" name="q5" value="img" /> &lt;img&gt;</label><br />
+      <label><input type="checkbox" name="q5" value="em" /> &lt;em&gt;</label>
+    </div>
+
+    <button type="button" onclick="checkAnswers()">Submit</button>
+    <button type="button" onclick="resetQuiz()">Restart Quiz</button>
+  </form>
+
+  <div class="result" id="result"></div>
+
+  <script>
+    function checkAnswers() {
+      let score = 0;
+      let result = document.getElementById("result");
+      result.innerHTML = "";
+
+      // Question 1
+      const q1 = document.querySelector('input[name="q1"]:checked');
+      if (q1 && q1.value === "b") score++;
+      result.innerHTML += `<p>Q1: ${q1 ? q1.value : "No answer"} - Correct: b</p>`;
+
+      // Question 2
+      const q2 = document.querySelector('input[name="q2"]:checked');
+      if (q2 && q2.value === "c") score++;
+      result.innerHTML += `<p>Q2: ${q2 ? q2.value : "No answer"} - Correct: c</p>`;
+
+      // Question 3
+      const q3 = document.querySelector('input[name="q3"]:checked');
+      if (q3 && q3.value === "b") score++;
+      result.innerHTML += `<p>Q3: ${q3 ? q3.value : "No answer"} - Correct: b</p>`;
+
+      // Question 4
+      const q4 = document.querySelector('input[name="q4"]').value.trim().toLowerCase();
+      if (q4 === "link" || q4 === "hyperlink") score++;
+      result.innerHTML += `<p>Q4: ${q4} - Acceptable: link or hyperlink</p>`;
+
+      // Question 5
+      const q5 = document.querySelectorAll('input[name="q5"]:checked');
+      const selected = Array.from(q5).map(i => i.value);
+      const correct = ["b", "strong", "em"];
+      const isCorrect = correct.every(val => selected.includes(val)) && selected.every(val => correct.includes(val));
+      if (isCorrect) score++;
+      result.innerHTML += `<p>Q5: ${selected.join(", ")} - Correct: b, strong, em</p>`;
+
+      // Final result
+      const passed = score >= 4;
+      result.innerHTML += `<h3>Total Score: ${score}/5</h3>`;
+      result.innerHTML += `<h3>${passed ? "You Passed! 🎉" : "Try Again! ❌"}</h3>`;
+    }
+
+    function resetQuiz() {
+      document.getElementById("quizForm").reset();
+      document.getElementById("result").innerHTML = "";
+    }
+  </script>
+</body>
+</html>
