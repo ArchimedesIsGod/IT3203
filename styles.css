@@ -184,4 +184,28 @@ footer a:hover {
     .intro {
         grid-column: 1 / -1;
     }
+/* Small screen (mobile) */
+@media (max-width: 600px) {
+  body {
+    font-size: 16px;
+    padding: 10px;
+  }
+  .main-menu {
+    flex-direction: column;
+  }
+}
+
+/* Medium screen (tablet) */
+@media (min-width: 601px) and (max-width: 992px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Large screen (desktop) */
+@media (min-width: 993px) {
+  main {
+    grid-template-columns: 1fr 1fr;
+  }
+}
 }
